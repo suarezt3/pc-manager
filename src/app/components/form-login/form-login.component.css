@@ -1,0 +1,179 @@
+/* Estilos generales */
+section{
+  font-family: "Nunito", sans-serif;
+}
+
+.background{
+  width: 430px;
+  height: 520px;
+  position: absolute;
+  transform: translate(-50%,-50%);
+  left: 50%;
+  top: 50%;
+}
+
+.background .shape{
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  border-radius: 50%;
+}
+
+.shape:first-child{
+  background: linear-gradient(
+    #1845ad,
+    #23a2f6
+  );
+  left: -80px;
+  top: -80px;
+}
+
+.shape:last-child{
+  background: linear-gradient(
+    to right,
+    #ff512f,
+    #f09819
+  );
+  right: -30px;
+  bottom: -80px;
+}
+
+.form{
+  height: 520px;
+  width: 400px;
+  background-color: rgba(255,255,255,0.13);
+  position: absolute;
+  transform: translate(-50%,-50%);
+  top: 50%;
+  left: 50%;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255,255,255,0.1);
+  box-shadow: 0 0 40px rgba(8,7,16,0.6);
+  padding: 50px 35px;
+}
+
+.title-form{
+  font-size: 32px;
+  text-align: center;
+}
+
+.label{
+  display: block;
+  margin-top: 30px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.input{
+  display: block;
+  height: 50px;
+  width: 100%;
+  background-color: rgba(255,255,255,0.07);
+  border-radius: 3px;
+  padding: 0 10px;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 300;
+  outline: none;
+  border: none;
+}
+
+.input:focus{
+  border: 1px solid #08071026;
+}
+
+.input:hover{
+  border: 1px solid #08071026;
+}
+
+.btn{
+  margin-top: 50px;
+  width: 100%;
+  padding: 15px 0;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  background-color: #ffffff00;
+}
+
+.btn:hover{
+  border: 1px solid #08071026;
+}
+
+/* Media query para pantallas pequeñas (máximo 600px) */
+@media (max-width: 600px) {
+  .background {
+    width: 300px;
+    height: 300px;
+  }
+
+  .background .shape {
+    height: 150px;
+    width: 150px;
+  }
+
+  .form {
+    width: 90%;
+    height: auto;
+    padding: 40px 25px;
+  }
+
+  .title-form {
+    font-size: 28px;
+  }
+
+  .label {
+    font-size: 14px;
+    margin-top: 20px;
+  }
+
+  .input {
+    font-size: 12px;
+    height: 45px;
+  }
+
+  .btn {
+    font-size: 16px;
+    padding: 12px 0;
+  }
+}
+
+/* Media query para pantallas muy pequeñas (máximo 400px) */
+@media (max-width: 400px) {
+  .background {
+    width: 250px;
+    height: 250px;
+  }
+
+  .background .shape {
+    height: 120px;
+    width: 120px;
+  }
+
+  .form {
+    width: 90%;
+    padding: 30px 20px;
+  }
+
+  .title-form {
+    font-size: 24px;
+  }
+
+  .label {
+    font-size: 12px;
+    margin-top: 15px;
+  }
+
+  .input {
+    font-size: 11px;
+    height: 40px;
+  }
+
+  .btn {
+    font-size: 14px;
+    padding: 10px 0;
+  }
+}
