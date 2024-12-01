@@ -3,15 +3,27 @@
     <div class="shape"></div>
     <div class="shape"></div>
 </div>
-<form class="form">
+<form class="form" [formGroup]="formLogin">
     <h3 class="title-form">Login</h3>
 
     <label class="label" for="username">Correo</label>
-    <input class="input" type="text" placeholder="example@hotmail.com" id="username">
+    <input
+    class="input"
+    type="text"
+    placeholder="example@hotmail.com"
+    formControlName="email"
+    id="username"
+    >
 
     <label class="label" for="password">Password</label>
-    <input class="input" type="password" placeholder="******" id="password">
+    <input
+    class="input"
+    type="password"
+    placeholder="******"
+    id="password"
+    formControlName="password"
+    >
 
-    <button class="btn">Ingresar</button>
+    <button class="btn" (click)="login()">Ingresar</button>
 </form>
 </section>

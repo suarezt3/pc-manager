@@ -12,12 +12,11 @@ export class SupabaseService {
 public supabaseClient: SupabaseClient;
 
 constructor() {
-
   this.supabaseClient = createClient(
-    environment.SUPABASE_URL, environment.SUPABASE_KEY
+      environment.SUPABASE_URL, environment.SUPABASE_KEY
   )
-
 }
+
 
 
 
