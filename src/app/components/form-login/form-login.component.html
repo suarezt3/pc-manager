@@ -4,15 +4,15 @@
     <div class="shape"></div>
 </div>
 <form class="form" [formGroup]="formLogin">
-    <h3 class="title-form">Login</h3>
+    <h3 class="title-form">{{ isLoginView ? 'Login' : 'Registro' }}</h3>
 
-    <label class="label" for="username">Correo</label>
+    <label class="label" for="email">Correo</label>
     <input
     class="input"
     type="text"
     placeholder="example@hotmail.com"
     formControlName="email"
-    id="username"
+    id="email"
     >
 
     <label class="label" for="password">Password</label>
@@ -24,6 +24,20 @@
     formControlName="password"
     >
 
-    <button class="btn" type="button" (click)="login()">Ingresar</button>
+    <button class="btn" type="button" (click)="isLoginView ? login() : register()">{{isLoginView ? 'Ingresar' : 'Registrarse'}}</button>
+    @if (isLoginView) {
+      <div>
+        <span>Aun no tienes cuenta? <a  (click)="toggleView()">Registrate</a></span>
+      </div>
+    }
+    <!-- <div>
+      <span>¿Olvidaste tu contraseña? <a href="#">Recuperar</a></span>
+    </div> -->
+    @if (!isLoginView) {
+      <div>
+        <span>Ya tienes una cuenta? <a (click)="toggleView()">Iniciar sesión</a></span>
+      </div>
+    }
 </form>
+
 </section>

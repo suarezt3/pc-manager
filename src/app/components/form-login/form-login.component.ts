@@ -15,6 +15,7 @@ import { log } from 'console';
 export class FormLoginComponent implements OnInit {
 
   public formLogin!: FormGroup;
+  public isLoginView: boolean = true;
 
   //Injecciones
   public fb = inject(FormBuilder);
@@ -30,8 +31,26 @@ export class FormLoginComponent implements OnInit {
     })
   }
 
+
+  toggleView() {
+    this.isLoginView = !this.isLoginView;
+  }
+
   login() {
-    console.log("LOGIN", this.formLogin.value);
+    let email = this.formLogin.value.email;
+    let password = this.formLogin.value.password;
+    console.log("INPUTS",email, password);
+    this.authSupabase.signUp(email, password)
+    .then((response) => {
+      console.log("RESPONSE", response);
+    })
+    .catch((error) => {
+      console.log("ERROR", error);
+    })
+  }
+
+  register() {
+
   }
 
 
