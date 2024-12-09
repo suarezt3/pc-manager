@@ -14,6 +14,15 @@
     formControlName="email"
     id="email"
     >
+    @if(invalidField('email')) {
+      <div>
+        <span class="error">Este campo es requerido</span>
+      </div>
+    }
+    @if(formLogin.controls['email'].errors?.['email']) {
+      <span class="error">Ingresa un correo valido</span>
+ }
+
 
     <label class="label" for="password">Password</label>
     <input
@@ -23,11 +32,27 @@
     id="password"
     formControlName="password"
     >
+    @if(invalidField('password')) {
+      <div>
+        <span class="error">Este campo es requerido</span>
+      </div>
+    }
+    @if(formLogin.controls['password'].errors?.['minlength']) {
+         <span class="error">Minimo 6 caracteres</span>
+    }
 
-    <button class="btn" type="button" (click)="isLoginView ? login() : register()">{{isLoginView ? 'Ingresar' : 'Registrarse'}}</button>
+
+
+    <button
+    [disabled]="formLogin.invalid"
+    [ngClass]="{'btn-inactivo': formLogin.invalid, 'btn-activo': formLogin.valid}"
+    class="btn"
+    type="button"
+    (click)="isLoginView ? login() : register()"
+  >{{isLoginView ? 'Ingresar' : 'Registrarse'}}</button>
     @if (isLoginView) {
       <div>
-        <span>Aun no tienes cuenta? <a  (click)="toggleView()">Registrate</a></span>
+        <span class="error">Aun no tienes cuenta? <a  (click)="toggleView()">Registrate</a></span>
       </div>
     }
     <!-- <div>
@@ -35,7 +60,7 @@
     </div> -->
     @if (!isLoginView) {
       <div>
-        <span>Ya tienes una cuenta? <a (click)="toggleView()">Iniciar sesión</a></span>
+        <span class="error">Ya tienes una cuenta? <a (click)="toggleView()">Iniciar sesión</a></span>
       </div>
     }
 </form>

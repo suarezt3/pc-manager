@@ -87,7 +87,7 @@ section{
   border: 1px solid #08071026;
 }
 
-.btn{
+.btn {
   margin-top: 50px;
   width: 100%;
   padding: 15px 0;
@@ -96,12 +96,24 @@ section{
   border-radius: 5px;
   cursor: pointer;
   border: none;
-  background-color: #ffffff00;
+  background-color: transparent; /* Sin fondo inicialmente */
+  transition: background-color 0.3s ease, border 0.3s ease; /* Transición suave */
 }
 
-.btn:hover{
-  border: 1px solid #08071026;
+.btn-inactivo {
+  background-color: rgba(0, 0, 0, 0.5); /* Color opaco, cuando el formulario es inválido */
+  cursor: not-allowed; /* Cambiar el cursor para indicar que el botón está deshabilitado */
 }
+
+.btn-activo {
+  border: 1px solid rgba(0, 0, 255, 0.215); /* Borde delgado azul */
+  background-color: transparent; /* Sin fondo */
+}
+
+.error{
+  color: red;
+}
+
 
 /* Media query para pantallas pequeñas (máximo 600px) */
 @media (max-width: 600px) {

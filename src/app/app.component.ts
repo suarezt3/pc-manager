@@ -7,7 +7,7 @@ import { LoginComponent } from './pages/login/login.component';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [LoginComponent]
+  imports: [LoginComponent, RouterOutlet]
 })
 export class AppComponent {
   title = 'pc-manager';
