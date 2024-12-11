@@ -4,6 +4,8 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
+
 
 
 
@@ -13,13 +15,15 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
     NzLayoutModule,
     NzBreadCrumbModule,
     NzIconModule,
-    NzMenuModule
+    NzMenuModule,
+    NzAlertModule
   ],
   exports: [
     NzLayoutModule,
     NzBreadCrumbModule,
     NzIconModule,
-    NzMenuModule
+    NzMenuModule,
+    NzAlertModule
   ],
 })
 export class NgZorroModule { }
