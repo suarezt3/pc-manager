@@ -18,7 +18,7 @@ constructor() { }
 async signIn(email: string, password: string) {
   const { data, error } = await this.supabaseClient.auth.signInWithPassword({ email, password });
   console.log("DATA", data);
-  //console.log("ERROR", error);
+  localStorage.setItem('token', JSON.stringify(data.session?.access_token));
   return { data, error }; // Devuelves los datos y el error, si es necesario
   //return await this.supabaseClient.auth.signInWithPassword({ email, password });
 }

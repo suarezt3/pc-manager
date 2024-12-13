@@ -89,7 +89,7 @@ export class FormLoginComponent implements OnInit {
       // Aquí puedes manejar el caso exitoso
       console.log("Inicio de sesión exitoso", data);
 
-      localStorage.setItem('token', JSON.stringify(data.session?.access_token));
+      // localStorage.setItem('token', JSON.stringify(data.session?.access_token));
       this.isLoader = false;
       this.router.navigate(['/dashboard']);
 
