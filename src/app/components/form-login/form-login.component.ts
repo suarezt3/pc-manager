@@ -23,7 +23,8 @@ export class FormLoginComponent implements OnInit {
   public isLoginView: boolean = true;
   public isLoader: boolean = false;
   public textErrorResp!: string;
-  public isErrorResp: boolean = false
+  public isErrorResp: boolean = false;
+  public isAutenticado: boolean = false;
 
   //Injecciones
   public fb = inject(FormBuilder);
@@ -110,6 +111,8 @@ export class FormLoginComponent implements OnInit {
     this.formLogin.markAllAsTouched();
     let email = this.formLogin.value.email;
     let password = this.formLogin.value.password;
+    console.log("REGISTRO", this.formLogin.value);
+
 
     try {
       const { data, error } = await this.authSupabase.signUp(email, password);
@@ -118,21 +121,45 @@ export class FormLoginComponent implements OnInit {
 
       if (error) {
         // Manejar el error según sea necesario
-        console.error("Error durante el registro:", error);
-
-        this.textErrorResp = `Ya existe un usuario con el correo: ${email}`;
-        this.isErrorResp = true;
-        this.isLoader = false;
-        timer(4000).subscribe(() => {
-          this.isErrorResp = false;
-        });
+        console.error("Error durante el registro:", error.message);
+        if (error.message === "Database error saving new user") {
+          this.textErrorResp = `Disculpa tenemos un probema interno, intenta de nuevo más tarde`;
+          this.isErrorResp = true;
+          this.isLoader = false;
+          timer(4000).subscribe(() => {
+            this.isErrorResp = false;
+          });
+        }else if (error.message === "User already registered") {
+          this.textErrorResp = `Ya existe un usuario con el correo: ${email}`;
+          this.isErrorResp = true;
+          this.isLoader = false;
+          timer(4000).subscribe(() => {
+            this.isErrorResp = false;
+          });
+        }
         return; // Salir de la función si hay un error
       }
 
       // Aquí puedes manejar el caso exitoso
       console.log("Registro exitoso", data);
       this.isLoader = false;
-      window.location.href = '/login';
+      console.log("ROL", data?.user?.role);
+      let rol = data?.user?.role;
+
+      if(rol === "authenticated") {
+          this.isAutenticado = true;
+
+
+        setTimeout(() => {
+          this.isAutenticado = false; // Ocultar mensaje de éxito
+          window.location.href = '/login'; // Redirigir al login
+      }, 2500);
+
+        }
+
+
+
+
 
     } catch (err) {
       console.error("Error inesperado:", err);

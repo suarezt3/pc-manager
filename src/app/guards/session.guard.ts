@@ -10,7 +10,7 @@ export class SessionGuard {
   canActivate(): boolean {
     const token = localStorage.getItem('token'); // Cambia 'token' por el nombre de tu token
 
-    if (token) {
+    if (token && token !== 'undefined') {
       return true; // Permitir el acceso a la ruta
     } else {
       this.router.navigate(['/login']); // Redirigir a la vista de login
