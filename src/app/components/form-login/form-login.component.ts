@@ -7,6 +7,7 @@ import { log } from 'console';
 import { Router } from '@angular/router';
 import { NgZorroModule } from '../../ng-zorro/ng-zorro.module';
 import { timer } from 'rxjs';
+import { DataService } from '../../services/data.service';
 
 
 
@@ -20,7 +21,7 @@ import { timer } from 'rxjs';
 export class FormLoginComponent implements OnInit {
 
   public formLogin!: FormGroup;
-  public isLoginView: boolean = true;
+  public isLoginView: boolean = true; // Cambia esto según la lógica de tu aplicación
   public isLoader: boolean = false;
   public textErrorResp!: string;
   public isErrorResp: boolean = false;
@@ -29,6 +30,7 @@ export class FormLoginComponent implements OnInit {
   //Injecciones
   public fb = inject(FormBuilder);
   public authSupabase = inject(AuthService);
+  public dataService = inject(DataService);
   public router = inject(Router);
 
   constructor() { }
@@ -36,8 +38,11 @@ export class FormLoginComponent implements OnInit {
   ngOnInit() {
 
     this.formLogin = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      email    : ['', [Validators.required, Validators.email]],
+      password : ['', [Validators.required, Validators.minLength(6)]],
+      username: ['', this.isLoginView ? null : Validators.required], // Requerido solo si no está en vista de inicio de sesión
+      rol: ['', this.isLoginView ? null : Validators.required], // Requerido solo si no está en vista de inicio de sesión
+      is_active: [false]
     })
   }
 
@@ -114,6 +119,7 @@ export class FormLoginComponent implements OnInit {
     console.log("REGISTRO", this.formLogin.value);
 
 
+
     try {
       const { data, error } = await this.authSupabase.signUp(email, password);
       console.log("DATA", data);
@@ -149,6 +155,15 @@ export class FormLoginComponent implements OnInit {
       if(rol === "authenticated") {
           this.isAutenticado = true;
 
+          const dataUser = {
+            username: this.formLogin.value.username,
+            email: this.formLogin.value.email,
+            rol: this.formLogin.value.rol,
+            is_active: true
+          }
+
+          this.dataService.createUser(dataUser)
+
 
         setTimeout(() => {
           this.isAutenticado = false; // Ocultar mensaje de éxito
@@ -156,10 +171,6 @@ export class FormLoginComponent implements OnInit {
       }, 2500);
 
         }
-
-
-
-
 
     } catch (err) {
       console.error("Error inesperado:", err);

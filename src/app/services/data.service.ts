@@ -10,8 +10,8 @@ export class DataService {
 
 constructor() { }
 
-// async createUser(data: any) {
-//   const { data: user, error } = await this.supabaseClient.from('profiles').insert(data);
-//   return { user, error }; // Devuelve los datos y el error, si es necesario
-// }
+ async createUser(data: any) {
+   const { data: user, error } = await this.supabaseClient.from('perfiles').insert(data);
+   return { user, error }; // Devuelve los datos y el error, si es necesario
+ }
 }
