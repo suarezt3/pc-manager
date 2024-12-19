@@ -1,13 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, signal, Signal } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SupabaseService } from '../../services/supabase.service';
 import { AuthService } from '../../services/auth.service';
-import { log } from 'console';
 import { Router } from '@angular/router';
 import { NgZorroModule } from '../../ng-zorro/ng-zorro.module';
 import { timer } from 'rxjs';
 import { DataService } from '../../services/data.service';
+
 
 
 
@@ -116,14 +115,9 @@ export class FormLoginComponent implements OnInit {
     this.formLogin.markAllAsTouched();
     let email = this.formLogin.value.email;
     let password = this.formLogin.value.password;
-    console.log("REGISTRO", this.formLogin.value);
-
-
 
     try {
       const { data, error } = await this.authSupabase.signUp(email, password);
-      console.log("DATA", data);
-      console.log("ERROR", error);
 
       if (error) {
         // Manejar el error según sea necesario
@@ -135,7 +129,7 @@ export class FormLoginComponent implements OnInit {
           timer(4000).subscribe(() => {
             this.isErrorResp = false;
           });
-        }else if (error.message === "User already registered") {
+        } else if (error.message === "User already registered") {
           this.textErrorResp = `Ya existe un usuario con el correo: ${email}`;
           this.isErrorResp = true;
           this.isLoader = false;
@@ -152,25 +146,23 @@ export class FormLoginComponent implements OnInit {
       console.log("ROL", data?.user?.role);
       let rol = data?.user?.role;
 
-      if(rol === "authenticated") {
-          this.isAutenticado = true;
+      if (rol === "authenticated") {
+        this.isAutenticado = true;
 
-          const dataUser = {
-            username: this.formLogin.value.username,
-            email: this.formLogin.value.email,
-            rol: this.formLogin.value.rol,
-            is_active: true
-          }
+        const dataUser = {
+          username: this.formLogin.value.username,
+          email: this.formLogin.value.email,
+          rol: this.formLogin.value.rol,
+          is_active: true
+        }
 
-          this.dataService.createUser(dataUser)
-
+        this.dataService.createUser(dataUser)
 
         setTimeout(() => {
           this.isAutenticado = false; // Ocultar mensaje de éxito
           window.location.href = '/login'; // Redirigir al login
-      }, 2500);
-
-        }
+        }, 2500);
+      }
 
     } catch (err) {
       console.error("Error inesperado:", err);
