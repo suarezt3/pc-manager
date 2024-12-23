@@ -27,18 +27,8 @@ export class DashboardComponent implements OnInit {
    // await this.dataService.getUser(userEmail);
 
    setTimeout(() => {
-     this.userData = this.dataService.userData;
-   }, 500);
+     this.userData = this.dataService.userData[0];
+   }, 600);
 
-
-    // Asigna los datos del usuario al componente desde localStorage
-  // const storedUserData = localStorage.getItem('userData');
-
-  // // Asegúrate de que `storedUserData` no sea null antes de hacer `JSON.parse`
-  // if (storedUserData) {
-  //   this.userData = JSON.parse(storedUserData); // Convierte la cadena JSON de vuelta a un objeto
-  // } else {
-  //   this.userData = {}; // O inicializa como un objeto vacío si no hay datos
-  // }
    }
 }

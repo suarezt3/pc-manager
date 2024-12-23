@@ -1,6 +1,7 @@
 
 .dashboard-layout {
   height: 100vh;
+  font-family: 'nunito', sans-serif, Arial;
 }
 
 
@@ -16,10 +17,18 @@
   color: #1890ff;
 }
 
-.logo {
-  height: 32px;
-  background: rgba(255, 255, 255, 0.2);
+.container-name {
   margin: 16px;
+  text-align: center;
+}
+
+.name-user{
+  color: #fff;
+}
+
+.rol-user{
+  color: #fff;
+  font-size: small;
 }
 
 nz-header {
@@ -40,8 +49,10 @@ nz-breadcrumb {
   background: #fff;
   min-height: 360px;
   height: 100%;
+  font-family: 'nunito', sans-serif, Arial;
 }
 
 nz-footer {
   text-align: center;
 }
+
