@@ -75,8 +75,7 @@ export class FormLoginComponent implements OnInit {
 
     try {
       const { data, error } = await this.authSupabase.signIn(email, password);
-      console.log("DATA", data);
-      console.log("ERROR", error);
+
 
       if (error) {
         // Manejar el error según sea necesario
@@ -91,6 +90,9 @@ export class FormLoginComponent implements OnInit {
         return; // Salir de la función si hay un error
       }
 
+      let emailUSer = data?.user?.email;
+
+      this.dataService.getUser(emailUSer)
       // Aquí puedes manejar el caso exitoso
       console.log("Inicio de sesión exitoso", data);
 
@@ -99,7 +101,7 @@ export class FormLoginComponent implements OnInit {
       this.router.navigate(['/dashboard']);
 
     } catch (err) {
-      console.error("Error inesperado:", err);
+
     } finally {
       this.formLogin.reset();
     }
