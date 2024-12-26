@@ -3,6 +3,7 @@ import { NgZorroModule } from '../../ng-zorro/ng-zorro.module';
 import { DataService } from '../../services/data.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { AlistamientosComponent } from '../../pages/alistamientos/alistamientos.component';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
   standalone: true,
-  imports: [NgZorroModule]
+  imports: [NgZorroModule, AlistamientosComponent]
 })
 export class DashboardComponent implements OnInit {
   isCollapsed = false;

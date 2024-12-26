@@ -1,0 +1,19 @@
+<button nz-button nzType="primary" (click)="open()">💻 Nuevo alistamiento</button>
+<nz-drawer
+      [nzBodyStyle]="{ overflow: 'auto' }"
+      [nzMaskClosable]="false"
+      [nzWidth]="720"
+      [nzVisible]="visible"
+      nzTitle="Crear nuevo alistamiento"
+      [nzFooter]="footerTpl"
+      (nzOnClose)="close()"
+    >
+
+
+
+    <ng-template #footerTpl>
+      <div style="float: right">
+        <button nz-button style="margin-right: 8px;" (click)="close()">Cancelar</button>
+        <button nz-button nzType="primary" (click)="close()">Enviar</button>
+      </div>
+    </ng-template>

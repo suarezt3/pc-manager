@@ -19,6 +19,7 @@
 
 .container-name {
   text-align: center;
+  margin-top: 10px;
 }
 
 .name-user{
@@ -39,9 +40,12 @@ nz-content {
   margin: 0 16px;
 }
 
-nz-breadcrumb {
-  margin: 16px 0;
+.header {
+display: flex;
+justify-content: space-between;
+align-items: center;
 }
+
 
 .inner-content {
   padding: 24px;
@@ -53,11 +57,10 @@ nz-breadcrumb {
 
 
 .btn-logout {
-  color: #fff;
+  color: #000000;
   font-size: 1.5rem;
   cursor: pointer;
-  margin-left: 20px;
-  margin-top: 5px;
+  margin-right: 20px;
 }
 
 nz-footer {
