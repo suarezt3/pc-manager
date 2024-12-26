@@ -1,6 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { NgZorroModule } from '../../ng-zorro/ng-zorro.module';
 import { DataService } from '../../services/data.service';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,6 +18,8 @@ export class DashboardComponent implements OnInit {
   public email: string = '';
 
   public dataService = inject(DataService);
+  public authService = inject(AuthService);
+  public router = inject(Router);
 
   constructor() {
 
@@ -31,4 +35,13 @@ export class DashboardComponent implements OnInit {
    }, 600);
 
    }
+
+
+   logout(){
+     this.authService.signOut();
+     localStorage.removeItem('email');
+     localStorage.removeItem('token');
+     this.router.navigate(['/login']);
+   }
+
 }

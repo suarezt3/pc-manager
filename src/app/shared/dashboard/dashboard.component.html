@@ -1,5 +1,6 @@
 <nz-layout class="dashboard-layout">
   <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+      <span class="btn-logout" nz-icon [nzType]="'logout'" (click)="logout()"></span>
     <div class="container-name">
       <h3 class="name-user">
         {{ userData?.username }}

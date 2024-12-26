@@ -18,7 +18,6 @@
 }
 
 .container-name {
-  margin: 16px;
   text-align: center;
 }
 
@@ -50,6 +49,15 @@ nz-breadcrumb {
   min-height: 360px;
   height: 100%;
   font-family: 'nunito', sans-serif, Arial;
+}
+
+
+.btn-logout {
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-left: 20px;
+  margin-top: 5px;
 }
 
 nz-footer {
