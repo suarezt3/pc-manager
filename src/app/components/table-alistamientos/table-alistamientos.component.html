@@ -2,14 +2,16 @@
 <nz-drawer
       [nzBodyStyle]="{ overflow: 'auto' }"
       [nzMaskClosable]="false"
-      [nzWidth]="720"
+      [nzWidth]="400"
       [nzVisible]="visible"
       nzTitle="Crear nuevo alistamiento"
       [nzFooter]="footerTpl"
       (nzOnClose)="close()"
     >
 
-
+    <ng-container *nzDrawerContent>
+      <app-form-alistamientos></app-form-alistamientos>
+  </ng-container>
 
     <ng-template #footerTpl>
       <div style="float: right">
@@ -17,3 +19,5 @@
         <button nz-button nzType="primary" (click)="close()">Enviar</button>
       </div>
     </ng-template>
+
+    <nz-drawer/>

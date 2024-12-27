@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgZorroModule } from '../../ng-zorro/ng-zorro.module';
+import { FormAlistamientosComponent } from '../form-alistamientos/form-alistamientos.component';
 
 
 
@@ -8,7 +9,7 @@ import { NgZorroModule } from '../../ng-zorro/ng-zorro.module';
   selector: 'app-table-alistamientos',
   templateUrl: './table-alistamientos.component.html',
   styleUrls: ['./table-alistamientos.component.css'],
-  imports: [NgZorroModule],
+  imports: [NgZorroModule, FormAlistamientosComponent],
 
 })
 export class TableAlistamientosComponent implements OnInit {
