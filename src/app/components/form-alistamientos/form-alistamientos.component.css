@@ -1,0 +1,18 @@
+input {
+  font-family: "Nunito", sans-serif;
+}
+
+.group-inputs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+
+nz-date-picker {
+  width: 170px;
+}
+
+nz-select {
+  width: 170px;
+}

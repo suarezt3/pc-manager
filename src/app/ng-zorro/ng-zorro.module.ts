@@ -8,6 +8,11 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
+
 
 
 @NgModule({
@@ -20,7 +25,11 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
     NzAlertModule,
     NzTableModule,
     NzButtonModule,
-    NzDrawerModule
+    NzDrawerModule,
+    NzInputModule,
+    NzDatePickerModule,
+    NzSelectModule,
+    NzUploadModule
   ],
   exports: [
     NzLayoutModule,
@@ -30,7 +39,11 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
     NzAlertModule,
     NzTableModule,
     NzButtonModule,
-    NzDrawerModule
+    NzDrawerModule,
+    NzInputModule,
+    NzDatePickerModule,
+    NzSelectModule,
+    NzUploadModule
   ],
 })
 export class NgZorroModule { }
