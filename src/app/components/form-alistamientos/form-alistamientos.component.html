@@ -1,7 +1,7 @@
 <section class="container">
   <form nz-form [formGroup]="formAlistamientos">
 
-    <div class="group-inputs">
+    <div class="group-inputs inputs">
       <div class="date groups-one">
         <label for="date">Fecha</label>
         <div>
@@ -23,37 +23,37 @@
 
 
 
-    <div>
+    <div class="inputs">
       <label for="usuario">Usuario</label>
         <input nz-input type="text" formControlName="usuario">
     </div>
 
-    <div>
+    <div class="inputs">
       <label for="serial" formControlName="serial">Serial</label>
       <input nz-input type="text" formControlName="serial">
     </div>
 
-    <div>
+    <div class="inputs">
       <label for="plate">Placa</label>
       <input nz-input type="text" formControlName="plate">
     </div>
 
-    <div>
+    <div class="inputs">
       <label for="model_pc">Modelo PC</label>
       <input nz-input type="text" formControlName="model_pc">
     </div>
 
-    <div>
+    <div class="inputs">
       <label for="ticket">Ticket</label>
       <input nz-input type="text" formControlName="ticket">
     </div>
 
-    <div>
-      <label for="description">Descripción</label>
-      <textarea rows="4" nz-input formControlName="description"></textarea>
+    <div class="inputs">
+      <label for="description">Comentarios</label>
+      <textarea rows="2" nz-input formControlName="description"></textarea>
     </div>
 
-    <div>
+    <div class="inputs">
         <nz-upload
         [nzHeaders]="{ authorization: 'authorization-text' }"
       >

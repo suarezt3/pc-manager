@@ -1,6 +1,12 @@
-input {
+section {
   font-family: "Nunito", sans-serif;
+  color: rgb(50, 81, 102);
 }
+
+.inputs {
+  margin-bottom: 10px;
+}
+
 
 .group-inputs {
   display: flex;
