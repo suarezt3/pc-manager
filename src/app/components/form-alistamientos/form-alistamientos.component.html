@@ -54,14 +54,21 @@
     </div>
 
     <div class="inputs">
-        <nz-upload
+        <!-- <nz-upload
+        nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
         [nzHeaders]="{ authorization: 'authorization-text' }"
+        (nzChange)="handleChange($event)"
       >
         <button nz-button nzType="default">
           Subir acta
         </button>
-      </nz-upload>
+      </nz-upload> -->
+
+      <input type="file" (change)="onFileSelected($event)" accept=".pdf" />
+      <button (click)="uploadFile()" [disabled]="!selectedFile">Subir PDF</button>
     </div>
+
+    <button (click)="enviar()">Enviar</button>
 
 
   </form>
