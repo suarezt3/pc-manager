@@ -61,8 +61,10 @@ constructor() {
 }
 
 
-async uploadDocument(doc: any) {
-  const { data: docUpload, error } = await this.supabaseClient.storage.from('actas').upload('Acta.pdf', doc);
+async uploadDocument(fileName: string, doc: any) {
+  console.log("DOC", doc);
+
+  const { data: docUpload, error } = await this.supabaseClient.storage.from('actas').upload(fileName, doc); // Usamos el nombre del archivo
   return { docUpload, error }; // Devuelve los datos y el error, si es necesario
 }
 

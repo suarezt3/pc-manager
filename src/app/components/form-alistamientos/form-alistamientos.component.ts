@@ -3,8 +3,10 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormGroup, FormBuilder } from '@angular/forms';
 import { NgZorroModule } from '../../ng-zorro/ng-zorro.module';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzUploadChangeParam, NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzUploadFile, NzUploadModule } from 'ng-zorro-antd/upload';
 import { DataService } from '../../services/data.service';
+
+
 
 @Component({
   standalone: true,
@@ -15,26 +17,18 @@ import { DataService } from '../../services/data.service';
 })
 export class FormAlistamientosComponent implements OnInit {
 
-  date = null;
-  isEnglish = false;
-
+  public date = null;
+  public isEnglish = false;
   public formAlistamientos!: FormGroup;
-  selectedFile: File | null = null;
-
-  constructor() { }
-
+  public selectedFile: File | null = null;
+  public uploading = false;
+  public fileList: NzUploadFile[] = [];
   public fb = inject(FormBuilder);
   public messageService = inject(NzMessageService);
   public dataService = inject(DataService);
 
 
-  onFileSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.selectedFile = input.files[0];
-    }
-  }
-
+  constructor() { }
 
 
   ngOnInit() {
@@ -55,41 +49,9 @@ export class FormAlistamientosComponent implements OnInit {
   }
 
 
-  async uploadFile() {
-    if (this.selectedFile) {
-      try {
-        const result = await this.dataService.uploadDocument(this.selectedFile);
-        console.log('File uploaded successfully:', result);
-      } catch (error) {
-        console.error('Error uploading file:', error);
-      }
-    }
-  }
-
-
-
-  // handleChange(event: NzUploadChangeParam): void {
-  //   if (event.file.status !== 'uploading') {
-  //     console.log( "DOCUMENTO", event.file, event.fileList);
-  //     this.dataService.uploadDocument(event.file)
-  //     .then((res) => {
-  //       console.log("RES", res);
-  //     })
-  //     .catch((err) => {
-  //       console.log("ERROR", err);
-  //     });
-  //   }
-  //   if (event.file.status === 'done') {
-  //     this.messageService.success(`${event.file.name} file uploaded successfully`);
-  //   } else if (event.file.status === 'error') {
-  //     this.messageService.error(`${event.file.name} file upload failed.`);
-  //   }
-  // }
 
 
   enviar() {
-
-
 
 
     const id_tecnico = JSON.parse(localStorage.getItem('id_user') || 'null');
@@ -108,4 +70,37 @@ export class FormAlistamientosComponent implements OnInit {
 
     console.log(dataForm);
   }
+
+
+
+  beforeUpload = (file: NzUploadFile): boolean => {
+    this.fileList = this.fileList.concat(file);
+    return false;
+  };
+
+
+ async handleUpload(){
+  console.log("FILE", this.fileList);
+  if (this.fileList.length > 1) {
+    this.messageService.error('Solo se permite cargar un archivo.');
+    return;
+  }
+
+    const formData = new FormData();
+    this.fileList.forEach((file: any) => {
+      formData.append('files[]', file);
+    });
+    this.uploading = true;
+    const result = await this.dataService.uploadDocument( this.fileList[0].name ,formData);
+    if (result.error) {
+        this.messageService.error(result.error.message);
+    } else {
+      this.messageService.success('Documento cargado correctamente');
+      console.log("DATA", result.docUpload);
+      this.fileList = [];
+
+    }
+    this.uploading = false;
+  }
+
 }
