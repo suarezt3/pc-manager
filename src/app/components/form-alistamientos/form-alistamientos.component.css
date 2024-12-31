@@ -22,3 +22,12 @@ nz-date-picker {
 nz-select {
   width: 170px;
 }
+
+
+.bnt-submit {
+  width: 100%;
+}
+
+.btn-upload {
+  width:200px
+}

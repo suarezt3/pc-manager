@@ -68,6 +68,9 @@ export class FormAlistamientosComponent implements OnInit {
       ticket: this.formAlistamientos.get('ticket')?.value
     };
 
+    this.dataService.createalistamiento(dataForm);
+    this.formAlistamientos.reset();
+
     console.log(dataForm);
   }
 
