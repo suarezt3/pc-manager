@@ -55,7 +55,9 @@
 
     <div class="inputs">
         <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
-      <button nz-button>
+      <button
+       [disabled]="fileList.length != 0"
+        nz-button>
         Selecciona el acta
       </button>
     </nz-upload>
@@ -67,7 +69,7 @@
       (click)="handleUpload()"
       [disabled]="fileList.length === 0"
     >
-      {{ uploading ? 'Cargando' : 'Cargar' }}
+      {{ uploading ? 'Subiendo' : 'Subir acta' }}
     </button>
     </div>
 
