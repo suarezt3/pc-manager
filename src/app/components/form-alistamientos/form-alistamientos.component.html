@@ -3,20 +3,32 @@
 
     <div class="group-inputs inputs">
       <div class="date groups-one">
-        <label for="date">Fecha</label>
+        <label for="date"><span class="required">*</span>Fecha</label>
         <div>
           <nz-date-picker formControlName="date"></nz-date-picker>
         </div>
+        @if (invalidField('date')) {
+          <div class="error" >
+              <span > Campo obligatorio </span>
+          </div>
+        }
       </div>
 
+
+
       <div class="opco groups-one">
-        <label for="opco">OPCO</label>
+        <label for="opco"><span class="required">*</span>OPCO</label>
         <div>
           <nz-select class="input" formControlName="opco" nzPlaceHolder="Seleccione una opcion">
             <nz-option nzValue="GroupM" nzLabel="GroupM" ></nz-option>
             <nz-option nzValue="VML" nzLabel="VML" ></nz-option>
           </nz-select>
         </div>
+        @if (invalidField('opco')) {
+          <div class="error" >
+              <span > Campo obligatorio </span>
+          </div>
+        }
       </div>
 
     </div>
@@ -24,18 +36,34 @@
 
 
     <div class="inputs">
-      <label for="usuario">Usuario</label>
+      <label for="usuario"><span class="required">*</span>Usuario</label>
         <input nz-input type="text" formControlName="usuario">
+        @if (invalidField('usuario')) {
+          <div class="error" >
+              <span > Campo obligatorio </span>
+          </div>
+        }
     </div>
 
+
     <div class="inputs">
-      <label for="serial" formControlName="serial">Serial</label>
+      <label for="serial" formControlName="serial"><span class="required">*</span>Serial</label>
       <input nz-input type="text" formControlName="serial">
+      @if (invalidField('serial')) {
+        <div class="error" >
+            <span > Campo obligatorio </span>
+        </div>
+      }
     </div>
 
     <div class="inputs">
-      <label for="plate">Placa</label>
+      <label for="plate"><span class="required">*</span>Placa</label>
       <input nz-input type="text" formControlName="plate">
+      @if (invalidField('plate')) {
+        <div class="error" >
+            <span > Campo obligatorio </span>
+        </div>
+      }
     </div>
 
     <div class="inputs">
@@ -54,7 +82,7 @@
     </div>
 
     <div class="inputs">
-        <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
+        <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload" formControlName="document_acta">
       <button
       class="btn-upload"
        [disabled]="fileList.length != 0"

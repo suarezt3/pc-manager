@@ -1,2 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+.error {
+  color: red;
+  font-size: 0.8rem;
+}
+
+.required {
+  color: red;
+}

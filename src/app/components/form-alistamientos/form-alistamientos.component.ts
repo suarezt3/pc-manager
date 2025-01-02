@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
-import { ReactiveFormsModule, FormsModule, FormGroup, FormBuilder } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgZorroModule } from '../../ng-zorro/ng-zorro.module';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadFile, NzUploadModule } from 'ng-zorro-antd/upload';
@@ -17,15 +17,16 @@ import { DataService } from '../../services/data.service';
 })
 export class FormAlistamientosComponent implements OnInit {
 
-  public date = null;
-  public isEnglish = false;
+  public date                      = null;
+  public isEnglish                 = false;
   public formAlistamientos!: FormGroup;
   public selectedFile: File | null = null;
-  public uploading = false;
-  public fileList: NzUploadFile[] = [];
-  public fb = inject(FormBuilder);
-  public messageService = inject(NzMessageService);
-  public dataService = inject(DataService);
+  public uploading                 = false;
+  public fileList: NzUploadFile[]  = [];
+  public id_acta!: string;
+  public fb                        = inject(FormBuilder);
+  public messageService            = inject(NzMessageService);
+  public dataService               = inject(DataService);
 
 
   constructor() { }
@@ -35,24 +36,42 @@ export class FormAlistamientosComponent implements OnInit {
 
     this.formAlistamientos = this.fb.group({
       id_tecnico: [''],
-      date: [''],
+      date: ['', [Validators.required]],
       description: [''],
       document_acta: [''],
-      opco: [''],
-      usuario: [''],
-      serial: [''],
-      plate: [''],
+      opco: ['', [Validators.required]],
+      usuario: ['', [Validators.required]],
+      serial: ['', [Validators.required]],
+      plate: ['', [Validators.required]],
       model_pc: [''],
       ticket: ['']
    });
 
   }
 
+  /**
+   *
+   * @param field valida los campos del formulario
+   * @returns
+   */
+  invalidField( field: string ) {
+    return this.formAlistamientos.get(field)?.invalid
+            && this.formAlistamientos.get(field)?.touched;
+  }
+
 
 
 
   enviar() {
+    this.formAlistamientos.markAllAsTouched();
 
+    if(this.formAlistamientos.invalid) {
+      this.messageService.error('Por favor, rellene los campos requeridos.');
+      return;
+    }else if(!this.id_acta) {
+      this.messageService.error('Es obligatorio subir el acta.');
+      return;
+    }
 
     const id_tecnico = JSON.parse(localStorage.getItem('id_user') || 'null');
     const dataForm = {
@@ -70,6 +89,7 @@ export class FormAlistamientosComponent implements OnInit {
 
     this.dataService.createalistamiento(dataForm);
     this.formAlistamientos.reset();
+    this.id_acta = '';
 
     console.log(dataForm);
   }
@@ -100,6 +120,7 @@ export class FormAlistamientosComponent implements OnInit {
     } else {
       this.messageService.success('Documento cargado correctamente');
       console.log("DATA", result.docUpload);
+      this.id_acta = result.docUpload?.id ?? '';
       this.fileList = [];
 
     }
