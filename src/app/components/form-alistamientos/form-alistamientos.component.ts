@@ -67,6 +67,7 @@ export class FormAlistamientosComponent implements OnInit {
   enviar() {
     console.log("PATH", this.path_acta);
 
+    //?Aqui debo crear una variable que me guarde la url de la imagen y despues la envio como valor de document_acta
     this.formAlistamientos.markAllAsTouched();
     if(this.formAlistamientos.invalid) {
       this.messageService.error('Por favor, rellene los campos requeridos.');
