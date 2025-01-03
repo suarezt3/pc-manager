@@ -61,13 +61,31 @@ constructor() {
 }
 
 
+//para subir el documento
 async uploadDocument(fileName: string, doc: any) {
   console.log("DOC", doc);
-
-  const { data: docUpload, error } = await this.supabaseClient.storage.from('actas').upload(fileName, doc); // Usamos el nombre del archivo
+  const { data: docUpload, error } = await this.supabaseClient.storage.from('documentos').upload(fileName, doc); // Usamos el nombre del archivo
   return { docUpload, error }; // Devuelve los datos y el error, si es necesario
 }
 
 
+//Para descargar el documento
+async downloadDocument(pathDocument: string) {
+  console.log("PATHDOCUMENT", pathDocument);
+  const { data, error } = await this.supabaseClient.storage.from('documentos').download(pathDocument); // Usamos el nombre del archivo
+  console.log("RESPUESTA", data);
+
+  return { data, error }; // Devuelve los datos y el error, si es necesario
+}
+
+
+//para obtener la URL del documento
+async getDocumentUrl(pathDocument: string) {
+  console.log("PATHDOCUMENT", pathDocument);
+  const { data } = await this.supabaseClient.storage.from("documentos").getPublicUrl(pathDocument); // Usamos el nombre del archivo
+  console.log("URL", data);
+
+  return { data}; // Devuelve los datos y el error, si es necesario
+}
 
 }

@@ -24,6 +24,8 @@ export class FormAlistamientosComponent implements OnInit {
   public uploading                 = false;
   public fileList: NzUploadFile[]  = [];
   public id_acta!: string;
+  public path_acta!: string;
+  public urlDownload!: string;
   public fb                        = inject(FormBuilder);
   public messageService            = inject(NzMessageService);
   public dataService               = inject(DataService);
@@ -63,8 +65,9 @@ export class FormAlistamientosComponent implements OnInit {
 
 
   enviar() {
-    this.formAlistamientos.markAllAsTouched();
+    console.log("PATH", this.path_acta);
 
+    this.formAlistamientos.markAllAsTouched();
     if(this.formAlistamientos.invalid) {
       this.messageService.error('Por favor, rellene los campos requeridos.');
       return;
@@ -78,7 +81,7 @@ export class FormAlistamientosComponent implements OnInit {
       id_tecnico: id_tecnico,
       date: this.formAlistamientos.get('date')?.value,
       description: this.formAlistamientos.get('description')?.value,
-      document_acta: this.formAlistamientos.get('document_acta')?.value,
+      document_acta: this.path_acta,
       opco: this.formAlistamientos.get('opco')?.value,
       usuario: this.formAlistamientos.get('usuario')?.value,
       serial: this.formAlistamientos.get('serial')?.value,
@@ -90,6 +93,7 @@ export class FormAlistamientosComponent implements OnInit {
     this.dataService.createalistamiento(dataForm);
     this.formAlistamientos.reset();
     this.id_acta = '';
+    this.messageService.success('Datos enviados correctamente');
 
     console.log(dataForm);
   }
@@ -121,10 +125,21 @@ export class FormAlistamientosComponent implements OnInit {
       this.messageService.success('Documento cargado correctamente');
       console.log("DATA", result.docUpload);
       this.id_acta = result.docUpload?.id ?? '';
+
+      this.path_acta = `${"https://pekauzywxaziqippzkxk.supabase.co/storage/v1/object/public/documentos/"}${result.docUpload?.path ?? ''}`; //!Pendiente de implementar en la tabla de alistamientos
       this.fileList = [];
 
     }
     this.uploading = false;
   }
+
+
+  downloadActa() {
+    this.dataService.getDocumentUrl(this.path_acta).then((result) => {
+      console.log("RESULT", result);
+      this.urlDownload = result.data.publicUrl;
+    });
+  }
+
 
 }
