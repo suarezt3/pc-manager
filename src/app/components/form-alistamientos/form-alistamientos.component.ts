@@ -5,6 +5,7 @@ import { NgZorroModule } from '../../ng-zorro/ng-zorro.module';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadFile, NzUploadModule } from 'ng-zorro-antd/upload';
 import { DataService } from '../../services/data.service';
+import { environment } from '../../../environments/environment';
 
 
 
@@ -30,6 +31,7 @@ export class FormAlistamientosComponent implements OnInit {
   public messageService            = inject(NzMessageService);
   public dataService               = inject(DataService);
 
+  private URL_STORAGE = environment.SUPABASE_URL_STORAGE
 
   constructor() { }
 
@@ -67,7 +69,8 @@ export class FormAlistamientosComponent implements OnInit {
   enviar() {
     console.log("PATH", this.path_acta);
 
-    //?Aqui debo crear una variable que me guarde la url de la imagen y despues la envio como valor de document_acta
+    this.path_acta = `${this.URL_STORAGE}${this.path_acta}`;
+
     this.formAlistamientos.markAllAsTouched();
     if(this.formAlistamientos.invalid) {
       this.messageService.error('Por favor, rellene los campos requeridos.');
@@ -127,7 +130,7 @@ export class FormAlistamientosComponent implements OnInit {
       console.log("DATA", result.docUpload);
       this.id_acta = result.docUpload?.id ?? '';
 
-      this.path_acta = `${"https://pekauzywxaziqippzkxk.supabase.co/storage/v1/object/public/documentos/"}${result.docUpload?.path ?? ''}`; //!Pendiente de implementar en la tabla de alistamientos
+      this.path_acta = result.docUpload?.path ?? '';
       this.fileList = [];
 
     }
