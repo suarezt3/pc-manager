@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { NgZorroModule } from '../../ng-zorro/ng-zorro.module';
 import { FormAlistamientosComponent } from '../form-alistamientos/form-alistamientos.component';
+import { DataService } from '../../services/data.service';
 
 
 
@@ -15,10 +16,17 @@ import { FormAlistamientosComponent } from '../form-alistamientos/form-alistamie
 export class TableAlistamientosComponent implements OnInit {
 
   public visible = false;
+  public data: any[] = [];
+  public dataService = inject(DataService);
 
   constructor() { }
 
   ngOnInit() {
+    this.dataService.getAlistamientos().then((result) => {
+      console.log("RESULT", result.alistamientos);
+      this.data = result.alistamientos ?? [];
+
+    });
   }
 
   open(): void {

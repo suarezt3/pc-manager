@@ -1,4 +1,33 @@
 <button nz-button nzType="primary" (click)="open()">💻 Nuevo alistamiento</button>
+
+
+  <nz-table #basicTable [nzData]="data">
+    <thead>
+      <tr>
+        <th>Usuario</th>
+        <th>OPCO</th>
+        <th>Serial</th>
+        <th>Placa</th>
+        <th>Acta</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of data; track $index) {
+        <tr>
+          <td>{{item.usuario}}</td>
+          <td>{{item.opco}}</td>
+          <td>{{item.serial}}</td>
+          <td>{{item.plate}}</td>
+          <td><a href="{{item.document_acta}}" [download]="item.document_acta" nz-button nzType="primary" target="_blank">Descargar acta</a></td>
+        </tr>
+      }
+
+    </tbody>
+  </nz-table>
+
+
+
+
 <nz-drawer
       [nzBodyStyle]="{ overflow: 'auto' }"
       [nzMaskClosable]="false"

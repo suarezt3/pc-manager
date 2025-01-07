@@ -61,6 +61,16 @@ constructor() {
 }
 
 
+/**
+ *
+ * @returns Para traer los datos de los alistamientos
+ */
+async getAlistamientos() {
+  const { data: alistamientos, error } = await this.supabaseClient.from('alistamientos').select("*");
+  return { alistamientos, error }; // Devuelve los datos y el error, si es necesario
+}
+
+
 //para subir el documento
 async uploadDocument(fileName: string, doc: any) {
   console.log("DOC", doc);
