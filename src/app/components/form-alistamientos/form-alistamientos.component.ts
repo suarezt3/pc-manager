@@ -88,10 +88,10 @@ export class FormAlistamientosComponent implements OnInit {
       document_acta: this.path_acta,
       opco: this.formAlistamientos.get('opco')?.value,
       usuario: this.formAlistamientos.get('usuario')?.value,
-      serial: this.formAlistamientos.get('serial')?.value,
+      serial: this.formAlistamientos.get('serial')?.value.toUpperCase(),
       plate: this.formAlistamientos.get('plate')?.value,
       model_pc: this.formAlistamientos.get('model_pc')?.value,
-      ticket: this.formAlistamientos.get('ticket')?.value
+      ticket: this.formAlistamientos.get('ticket')?.value.toUpperCase()
     };
 
     this.dataService.createalistamiento(dataForm);

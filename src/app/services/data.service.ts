@@ -66,7 +66,7 @@ constructor() {
  * @returns Para traer los datos de los alistamientos
  */
 async getAlistamientos() {
-  const { data: alistamientos, error } = await this.supabaseClient.from('alistamientos').select("*");
+  const { data: alistamientos, error } = await this.supabaseClient.from('alistamientos').select("*").eq('id_tecnico', this.userData[0].id);
   return { alistamientos, error }; // Devuelve los datos y el error, si es necesario
 }
 

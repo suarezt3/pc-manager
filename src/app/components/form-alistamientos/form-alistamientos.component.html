@@ -48,7 +48,7 @@
 
     <div class="inputs">
       <label for="serial" formControlName="serial"><span class="required">*</span>Serial</label>
-      <input nz-input type="text" formControlName="serial">
+      <input nz-input type="text" formControlName="serial" class="uppercase-text">
       @if (invalidField('serial')) {
         <div class="error" >
             <span > Campo obligatorio </span>
@@ -73,7 +73,7 @@
 
     <div class="inputs">
       <label for="ticket">Ticket</label>
-      <input nz-input type="text" formControlName="ticket">
+      <input nz-input type="text" formControlName="ticket" class="uppercase-text">
     </div>
 
     <div class="inputs">

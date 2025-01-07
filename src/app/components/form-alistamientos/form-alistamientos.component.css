@@ -7,6 +7,10 @@ section {
   margin-bottom: 10px;
 }
 
+.uppercase-text {
+  text-transform: uppercase;
+}
+
 
 .group-inputs {
   display: flex;
