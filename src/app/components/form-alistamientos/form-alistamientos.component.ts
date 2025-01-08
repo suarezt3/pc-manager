@@ -25,6 +25,7 @@ export class FormAlistamientosComponent implements OnInit {
   public uploading                 = false;
   public fileList: NzUploadFile[]  = [];
   public id_acta!: string;
+  public status!: string;
   public path_acta!: string;
   public urlDownload!: string;
   public fb                        = inject(FormBuilder);
@@ -80,6 +81,8 @@ export class FormAlistamientosComponent implements OnInit {
       return;
     }
 
+    this.status = "Finalizado";
+
     const id_tecnico = JSON.parse(localStorage.getItem('id_user') || 'null');
     const dataForm = {
       id_tecnico: id_tecnico,
@@ -91,7 +94,8 @@ export class FormAlistamientosComponent implements OnInit {
       serial: this.formAlistamientos.get('serial')?.value.toUpperCase(),
       plate: this.formAlistamientos.get('plate')?.value,
       model_pc: this.formAlistamientos.get('model_pc')?.value,
-      ticket: this.formAlistamientos.get('ticket')?.value.toUpperCase()
+      ticket: this.formAlistamientos.get('ticket')?.value.toUpperCase(),
+      status: this.status
     };
 
     this.dataService.createalistamiento(dataForm);
@@ -99,7 +103,7 @@ export class FormAlistamientosComponent implements OnInit {
     this.id_acta = '';
     this.messageService.success('Datos enviados correctamente');
 
-    console.log(dataForm);
+    console.log("DATAFORM",dataForm);
   }
 
 

@@ -1,14 +1,16 @@
 <button nz-button nzType="primary" (click)="open()">💻 Nuevo alistamiento</button>
 
+<hr>
 
   <nz-table #basicTable [nzData]="data">
     <thead>
       <tr>
-        <th>Usuario</th>
-        <th>OPCO</th>
-        <th>Serial</th>
-        <th>Placa</th>
-        <th>Acta</th>
+        <th class="th">Usuario</th>
+        <th class="th">OPCO</th>
+        <th class="th">Serial</th>
+        <th class="th">Placa</th>
+        <th class="th">Estado</th>
+        <th class="th">Acta</th>
       </tr>
     </thead>
     <tbody>
@@ -18,6 +20,9 @@
           <td>{{item.opco}}</td>
           <td>{{item.serial}}</td>
           <td>{{item.plate}}</td>
+          <td>
+            <nz-tag [nzColor]="item.status === 'Pendiente' ? 'error' : 'success'">{{item.status}}</nz-tag>
+          </td>
           <td><a href="{{item.document_acta}}" [download]="item.document_acta" nz-button nzType="primary" target="_blank">Descargar acta</a></td>
         </tr>
       }

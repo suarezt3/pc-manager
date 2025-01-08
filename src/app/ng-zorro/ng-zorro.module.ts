@@ -12,6 +12,8 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzTagModule } from 'ng-zorro-antd/tag';
+
 
 
 
@@ -30,7 +32,8 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
     NzInputModule,
     NzDatePickerModule,
     NzSelectModule,
-    NzUploadModule
+    NzUploadModule,
+    NzTagModule
   ],
   exports: [
     NzLayoutModule,
@@ -44,7 +47,8 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
     NzInputModule,
     NzDatePickerModule,
     NzSelectModule,
-    NzUploadModule
+    NzUploadModule,
+    NzTagModule
   ],
 })
 export class NgZorroModule { }
