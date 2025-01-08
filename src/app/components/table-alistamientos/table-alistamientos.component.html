@@ -23,7 +23,13 @@
           <td>
             <nz-tag [nzColor]="item.status === 'Pendiente' ? 'error' : 'success'">{{item.status}}</nz-tag>
           </td>
-          <td><a href="{{item.document_acta}}" [download]="item.document_acta" nz-button nzType="primary" target="_blank">Descargar acta</a></td>
+          <td>
+            @if(item.status === 'Finalizado') {
+              <a href="{{item.document_acta}}" [download]="item.document_acta" nz-button nzType="primary" target="_blank">Descargar acta</a>
+            }@else {
+              <button nz-button nzType="default" (click)="open()">Cargar acta</button>
+            }
+          </td>
         </tr>
       }
 

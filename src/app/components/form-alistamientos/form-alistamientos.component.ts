@@ -27,7 +27,7 @@ export class FormAlistamientosComponent implements OnInit {
   public id_acta!: string;
   public status!: string;
   public path_acta!: string;
-  public urlDownload!: string;
+  // public urlDownload!: string;
   public fb                        = inject(FormBuilder);
   public messageService            = inject(NzMessageService);
   public dataService               = inject(DataService);
@@ -142,12 +142,12 @@ export class FormAlistamientosComponent implements OnInit {
   }
 
 
-  downloadActa() {
-    this.dataService.getDocumentUrl(this.path_acta).then((result) => {
-      console.log("RESULT", result);
-      this.urlDownload = result.data.publicUrl;
-    });
-  }
+  // downloadActa() {
+  //   this.dataService.getDocumentUrl(this.path_acta).then((result) => {
+  //     console.log("RESULT", result);
+  //     this.urlDownload = result.data.publicUrl;
+  //   });
+  // }
 
 
 }

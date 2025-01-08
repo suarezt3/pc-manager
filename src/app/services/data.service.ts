@@ -53,7 +53,7 @@ constructor() {
   this.userData = perfil;
   console.log("USERDATA", this.userData[0]);
   // Guarda los datos en localStorage
-  localStorage.setItem('userData', JSON.stringify(this.userData));
+  localStorage.setItem('userData', JSON.stringify(this.userData[0]));
   localStorage.setItem('id_user', JSON.stringify(this.userData[0].id));
 
   return { perfil, error }; // Devuelve los datos y el error, si es necesario
@@ -66,8 +66,15 @@ constructor() {
  * @returns Para traer los datos de los alistamientos
  */
 async getAlistamientos() {
-  const { data: alistamientos, error } = await this.supabaseClient.from('alistamientos').select("*").eq('id_tecnico', this.userData[0].id);
+  console.log("ROL", this.userData);
+
+  if (this.userData.rol === "Administrador") {
+    const { data: alistamientos, error } = await this.supabaseClient.from('alistamientos').select("*")
+    return { alistamientos, error }; // Devuelve los datos y el error, si es necesario
+  }else{
+    const { data: alistamientos, error } = await this.supabaseClient.from('alistamientos').select("*").eq('id_tecnico', this.userData.id);
   return { alistamientos, error }; // Devuelve los datos y el error, si es necesario
+  }
 }
 
 
@@ -90,12 +97,12 @@ async downloadDocument(pathDocument: string) {
 
 
 //para obtener la URL del documento
-async getDocumentUrl(pathDocument: string) {
-  console.log("PATHDOCUMENT", pathDocument);
-  const { data } = await this.supabaseClient.storage.from("documentos").getPublicUrl(pathDocument); // Usamos el nombre del archivo
-  console.log("URL", data);
+// async getDocumentUrl(pathDocument: string) {
+//   console.log("PATHDOCUMENT", pathDocument);
+//   const { data } = await this.supabaseClient.storage.from("documentos").getPublicUrl(pathDocument); // Usamos el nombre del archivo
+//   console.log("URL", data);
 
-  return { data}; // Devuelve los datos y el error, si es necesario
-}
+//   return { data}; // Devuelve los datos y el error, si es necesario
+// }
 
 }

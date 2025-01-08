@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
    // await this.dataService.getUser(userEmail);
 
    setTimeout(() => {
-     this.userData = this.dataService.userData[0];
+     this.userData = this.dataService.userData;
    }, 600);
 
    }
