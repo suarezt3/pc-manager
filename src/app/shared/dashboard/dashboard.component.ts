@@ -24,25 +24,24 @@ export class DashboardComponent implements OnInit {
 
   constructor() {
 
+
   }
 
-  async ngOnInit() {
-    // Cargar datos del usuario desde el servicio
-    const userEmail = localStorage.getItem('email') // Asegúrate de que `email` tenga un valor válido
-   // await this.dataService.getUser(userEmail);
-
-   setTimeout(() => {
-     this.userData = this.dataService.userData;
-   }, 600);
+  ngOnInit() {
+    setTimeout(() => {
+      this.userData = this.dataService.userData;
+    }, 600);
 
    }
 
 
    logout(){
-     this.authService.signOut();
-     localStorage.removeItem('email');
-     localStorage.removeItem('token');
-     this.router.navigate(['/login']);
+    this.authService.signOut().then(() => {
+      // Limpia userData al cerrar sesión
+      this.dataService.userData = {};
+      this.userData = this.dataService.userData;
+      this.router.navigate(['/login']);
+    });
    }
 
 }

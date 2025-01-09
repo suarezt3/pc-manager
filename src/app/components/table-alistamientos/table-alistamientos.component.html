@@ -1,4 +1,4 @@
-<button nz-button nzType="primary" (click)="open()">💻 Nuevo alistamiento</button>
+<button nz-button nzType="primary" (click)="userData.rol === 'Administrador' ? showModal() : open()">💻{{getButtonText() }}</button>
 
 <hr>
 
@@ -36,9 +36,6 @@
     </tbody>
   </nz-table>
 
-
-
-
 <nz-drawer
       [nzBodyStyle]="{ overflow: 'auto' }"
       [nzMaskClosable]="false"
@@ -56,8 +53,18 @@
     <ng-template #footerTpl>
       <div style="float: right">
         <button nz-button style="margin-right: 8px;" (click)="close()">Cancelar</button>
-        <!-- <button nz-button nzType="primary" (click)="close()">Enviar</button> -->
+
       </div>
     </ng-template>
 
     <nz-drawer/>
+
+
+
+    <nz-modal [(nzVisible)]="isVisible" nzTitle="The first Modal" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+      <ng-container *nzModalContent>
+        <p>Content one</p>
+        <p>Content two</p>
+        <p>Content three</p>
+      </ng-container>
+    </nz-modal>

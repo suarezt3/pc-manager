@@ -61,6 +61,12 @@ constructor() {
 }
 
 
+async getTecnico(id: string) {
+  const { data: tecnico, error } = await this.supabaseClient.from('perfiles').select("*").eq('id', id);
+  return { tecnico, error }; // Devuelve los datos y el error, si es necesario
+}
+
+
 /**
  *
  * @returns Para traer los datos de los alistamientos

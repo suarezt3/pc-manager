@@ -39,6 +39,10 @@ async signUp(email: string, password: string) {
 
 // Método para cerrar sesión
 async signOut() {
+  localStorage.removeItem('email');
+  localStorage.removeItem('token');
+  localStorage.removeItem('userData');
+  localStorage.removeItem('id_user');
   return await this.supabaseClient.auth.signOut();
 }
 
