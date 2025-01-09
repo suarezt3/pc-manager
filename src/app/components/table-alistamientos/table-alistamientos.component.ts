@@ -33,6 +33,7 @@ export class TableAlistamientosComponent implements OnInit {
       console.log("RESULT", result.alistamientos);
       this.data = result.alistamientos ?? [];
     });
+
   }
 
 

@@ -1,5 +1,6 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { SupabaseService } from './supabase.service';
+import { log } from 'console';
 
 
 
@@ -15,9 +16,11 @@ export class DataService {
 
 constructor() {
     // Intenta cargar los datos del usuario desde localStorage al iniciar el servicio
-    const storedUserData = localStorage.getItem('userData');
+   // const storedUserData = localStorage.getItem('userData');
+   // console.log("storeUSERDATA", storedUserData);
 
-      this.userData = storedUserData ? JSON.parse(storedUserData) : []; // Convierte la cadena JSON de vuelta a un objeto
+
+      //this.userData = storedUserData ? JSON.parse(storedUserData) : []; // Convierte la cadena JSON de vuelta a un objeto
 
  }
 
@@ -51,6 +54,7 @@ constructor() {
  async getUser(emailUSer: any) {
   const { data: perfil, error } = await this.supabaseClient.from('perfiles').select("*").eq('email', emailUSer);
   this.userData = perfil;
+
   console.log("USERDATA", this.userData[0]);
   // Guarda los datos en localStorage
   localStorage.setItem('userData', JSON.stringify(this.userData[0]));
@@ -72,14 +76,33 @@ async getTecnico(id: string) {
  * @returns Para traer los datos de los alistamientos
  */
 async getAlistamientos() {
-  console.log("ROL", this.userData);
+  const storedUserData = localStorage.getItem('userData');
+  if (storedUserData) {
+    this.userData = JSON.parse(storedUserData);
+  } else {
+    console.warn('No se encontraron datos de usuario en localStorage');
+  }
+  try {
+    // Definir filtro base
+    const filtro = this.userData.rol === "Administrador"
+      ? {} // Administradores ven todo
+      : { id_tecnico: this.userData?.id }; // Técnicos solo ven sus registros
 
-  if (this.userData.rol === "Administrador") {
-    const { data: alistamientos, error } = await this.supabaseClient.from('alistamientos').select("*")
-    return { alistamientos, error }; // Devuelve los datos y el error, si es necesario
-  }else{
-    const { data: alistamientos, error } = await this.supabaseClient.from('alistamientos').select("*").eq('id_tecnico', this.userData.id);
-  return { alistamientos, error }; // Devuelve los datos y el error, si es necesario
+    // Obtener los datos desde Supabase
+    const { data: alistamientos, error } = await this.supabaseClient
+      .from('alistamientos')
+      .select("*")
+      .match(filtro); // Aplicar filtro dinámico
+
+    // Manejar errores
+    if (error) {
+      console.error('Error obteniendo alistamientos:', error);
+      throw new Error('No se pudieron obtener los alistamientos.');
+    }
+
+    return { alistamientos, error: null }; // Devolver los datos
+  } catch (error) {
+    return { alistamientos: null, error }; // Manejar errores generales
   }
 }
 

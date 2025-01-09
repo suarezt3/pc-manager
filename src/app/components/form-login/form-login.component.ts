@@ -93,6 +93,9 @@ export class FormLoginComponent implements OnInit {
       let emailUSer = data?.user?.email;
 
       this.dataService.getUser(emailUSer)
+      const {perfil, error: userError} = await this.dataService.getUser(emailUSer);
+      console.log("RESPUESTA LOGIN", perfil, userError);
+
       // Aquí puedes manejar el caso exitoso
       console.log("Inicio de sesión exitoso", data);
 
