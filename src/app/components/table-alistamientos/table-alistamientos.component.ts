@@ -22,12 +22,18 @@ export class TableAlistamientosComponent implements OnInit {
   public loadingData: boolean = false;
   public dataService = inject(DataService);
 
-  constructor() { }
+  constructor() {
+    const storedUserData = localStorage.getItem('userData');
+  if (storedUserData) {
+    this.userData = JSON.parse(storedUserData);
+  } else {
+    console.warn('No se encontraron datos de usuario en localStorage');
+  }
+   }
 
   ngOnInit() {
 
-    console.log(this.dataService.userData);
-    this.userData = this.dataService.userData;
+    //this.userData = this.dataService.userData;
 
     this.dataService.getAlistamientos().then((result) => {
       console.log("RESULT", result.alistamientos);
@@ -38,7 +44,9 @@ export class TableAlistamientosComponent implements OnInit {
 
 
   getButtonText() {
-    return this.userData.rol === 'Administrador' ? 'Asignar alistamiento' : 'Nuevo alistamiento';
+    console.log("USERDATA", this.userData);
+
+    return this.userData?.rol === 'Administrador' ? 'Asignar alistamiento' : 'Nuevo alistamiento';
   }
 
   /**
