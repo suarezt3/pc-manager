@@ -60,11 +60,18 @@
     <nz-drawer/>
 
 
-
-    <nz-modal [(nzVisible)]="isVisible" nzTitle="The first Modal" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+<!--?Pendiente crear el formulario para la asiganacion de los alistamientos  -->
+    <nz-modal [(nzVisible)]="isVisible" nzTitle="Asignacion de alistamiento" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
       <ng-container *nzModalContent>
-        <p>Content one</p>
-        <p>Content two</p>
-        <p>Content three</p>
+        <div>
+          <label for="usuario">Correo del usuario</label>
+          <div>
+            <input type="text" >
+          </div>
+          <label for="tecnico">Técnico</label>
+          <div>
+            <input type="text">
+          </div>
+        </div>
       </ng-container>
     </nz-modal>
