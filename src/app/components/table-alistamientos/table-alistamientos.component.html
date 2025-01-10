@@ -17,9 +17,9 @@
       @for (item of data; track $index) {
         <tr>
           <td>{{item.usuario}}</td>
-          <td>{{item.opco}}</td>
-          <td>{{item.serial}}</td>
-          <td>{{item.plate}}</td>
+          <td>{{item.opco ?? 'No asignado'}}</td>
+          <td>{{item.serial ?? 'No asignado'}}</td>
+          <td>{{item.plate ?? 'No asignado'}}</td>
           <td>
             <nz-tag [nzColor]="item.status === 'Pendiente' ? 'error' : 'success'">{{item.status}}</nz-tag>
           </td>
@@ -63,15 +63,32 @@
 <!--?Pendiente crear el formulario para la asiganacion de los alistamientos  -->
     <nz-modal [(nzVisible)]="isVisible" nzTitle="Asignacion de alistamiento" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
       <ng-container *nzModalContent>
-        <div>
+        <form [formGroup]="formAsignacion">
           <label for="usuario">Correo del usuario</label>
           <div>
-            <input type="text" >
+            <input nz-input type="text" formControlName="usuario" >
+            @if (invalidField('usuario')) {
+              <div class="error" >
+                  <span > Campo obligatorio </span>
+              </div>
+            }
+            @if(formAsignacion.controls['usuario'].errors?.['email']) {
+              <span class="error">Ingresa un correo valido</span>
+            }
           </div>
           <label for="tecnico">Técnico</label>
           <div>
-            <input type="text">
+            <nz-select class="input" formControlName="tecnico" nzPlaceHolder="Seleccione una opcion">
+              @for (item of dataPerfiles; track item?.id) {
+                <nz-option [nzValue]="item?.id" [nzLabel]="item.username"></nz-option>
+              }
+            </nz-select>
+            @if (invalidField('tecnico')) {
+              <div class="error" >
+                  <span > Campo obligatorio </span>
+              </div>
+            }
           </div>
-        </div>
+        </form>
       </ng-container>
     </nz-modal>

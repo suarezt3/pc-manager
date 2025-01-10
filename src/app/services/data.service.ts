@@ -71,6 +71,27 @@ async getTecnico(id: string) {
 }
 
 
+async getPerfiles() {
+  try {
+    // Realiza la consulta a la tabla 'perfiles'
+    const { data: perfiles, error } = await this.supabaseClient.from('perfiles').select("*");
+
+    // Manejo de errores
+    if (error) {
+      console.error('Error al obtener perfiles:', error);
+      throw new Error('No se pudieron obtener los perfiles');
+    }
+
+    // Devolver solo los datos si no hay error
+    return perfiles;
+  } catch (err) {
+    // Manejo de cualquier error adicional
+    console.error('Error en getPerfiles:', err);
+    throw err; // Vuelve a lanzar el error para que se maneje en otro lugar si es necesario
+  }
+}
+
+
 /**
  *
  * @returns Para traer los datos de los alistamientos
