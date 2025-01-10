@@ -59,6 +59,9 @@
     @if(formLogin.controls['email'].errors?.['email']) {
       <span class="error">Ingresa un correo valido</span>
     }
+    @if(formLogin.controls['email'].errors?.['emailExist']) {
+      <span class="error">Este email no esta autorizado, contacta con el administrador</span>
+    }
 
     <label class="label" for="password">Password</label>
     <input

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { NgZorroModule } from '../../ng-zorro/ng-zorro.module';
 import { timer } from 'rxjs';
 import { DataService } from '../../services/data.service';
+import { ValidatorEmailService } from '../../services/validate-email.service';
 
 
 
@@ -31,13 +32,14 @@ export class FormLoginComponent implements OnInit {
   public authSupabase = inject(AuthService);
   public dataService = inject(DataService);
   public router = inject(Router);
+  public validateEmail = inject(ValidatorEmailService);
 
   constructor() { }
 
   ngOnInit() {
 
     this.formLogin = this.fb.group({
-      email    : ['', [Validators.required, Validators.email]],
+      email    : ['', [Validators.required, Validators.email], [this.validateEmail]],
       password : ['', [Validators.required, Validators.minLength(6)]],
       username: ['', this.isLoginView ? null : Validators.required], // Requerido solo si no está en vista de inicio de sesión
       rol: ['', this.isLoginView ? null : Validators.required], // Requerido solo si no está en vista de inicio de sesión

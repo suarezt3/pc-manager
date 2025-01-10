@@ -15,12 +15,6 @@ export class DataService {
 
 
 constructor() {
-    // Intenta cargar los datos del usuario desde localStorage al iniciar el servicio
-   // const storedUserData = localStorage.getItem('userData');
-   // console.log("storeUSERDATA", storedUserData);
-
-
-      //this.userData = storedUserData ? JSON.parse(storedUserData) : []; // Convierte la cadena JSON de vuelta a un objeto
 
  }
 
@@ -33,6 +27,17 @@ constructor() {
    const { data: user, error } = await this.supabaseClient.from('perfiles').insert(data);
    return { user, error }; // Devuelve los datos y el error, si es necesario
  }
+
+ /**
+  *
+  * @param email para buscar los emails de un usuario
+  */
+ async getEmails(email: any) {
+  const { data: user, error } = await this.supabaseClient.from('emails').select("*").eq('email', email);
+  return { user, error }; // Devuelve los datos y el error, si es necesario
+}
+
+
 
 
  /**
