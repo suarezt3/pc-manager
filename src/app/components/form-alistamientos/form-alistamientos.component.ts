@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgZorroModule } from '../../ng-zorro/ng-zorro.module';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -18,6 +18,9 @@ import { environment } from '../../../environments/environment';
 })
 export class FormAlistamientosComponent implements OnInit {
 
+  @Output() alistamientoCreado = new EventEmitter<any>(); // Agrega esta línea
+
+  public data: any[] = [];
   public date                      = null;
   public isEnglish                 = false;
   public formAlistamientos!: FormGroup;
@@ -54,6 +57,15 @@ export class FormAlistamientosComponent implements OnInit {
 
   }
 
+
+  /**
+   * Metodo para actualizar la data de la tabla cuando se crea un nuevo alistamiento
+   */
+  async loadAlistamientos() {
+    const result = await this.dataService.getAlistamientos();
+    this.data = result.alistamientos ?? []; // Carga de nuevo los alistamientos
+  }
+
   /**
    *
    * @param field valida los campos del formulario
@@ -67,9 +79,7 @@ export class FormAlistamientosComponent implements OnInit {
 
 
 
-  enviar() {
-    console.log("PATH", this.path_acta);
-
+ async enviar() {
     this.path_acta = `${this.URL_STORAGE}${this.path_acta}`;
 
     this.formAlistamientos.markAllAsTouched();
@@ -100,7 +110,9 @@ export class FormAlistamientosComponent implements OnInit {
       tecnico: tecnico
     };
 
-    this.dataService.createalistamiento(dataForm);
+  await  this.dataService.createalistamiento(dataForm);
+  this.alistamientoCreado.emit(dataForm);
+  await this.loadAlistamientos();
     this.formAlistamientos.reset();
     this.id_acta = '';
     this.messageService.success('Datos enviados correctamente');

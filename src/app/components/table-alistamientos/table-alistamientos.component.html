@@ -53,7 +53,7 @@
     >
 
     <ng-container *nzDrawerContent>
-      <app-form-alistamientos></app-form-alistamientos>
+      <app-form-alistamientos (alistamientoCreado)="onAlistamientoCreado()"></app-form-alistamientos>
   </ng-container>
 
     <ng-template #footerTpl>

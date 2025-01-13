@@ -57,6 +57,12 @@ export class TableAlistamientosComponent implements OnInit {
 
   }
 
+  // Método para manejar el evento de creación de alistamiento
+  onAlistamientoCreado() {
+    this.loadAlistamientos(); // Carga de nuevo los alistamientos
+  }
+
+
   /**
    *
    * @param field valida los campos del formulario
@@ -67,6 +73,12 @@ export class TableAlistamientosComponent implements OnInit {
   }
 
 
+  async loadAlistamientos() {
+    this.loadingData = true;
+    const result = await this.dataService.getAlistamientos();
+    this.data = result.alistamientos ?? [];
+    this.loadingData = false;
+  }
 
   getButtonText() {
     console.log("USERDATA", this.userData);
@@ -95,18 +107,15 @@ export class TableAlistamientosComponent implements OnInit {
     this.isVisible = true;
   }
 
-  handleOk() {
+ async handleOk() {
     console.log(this.formAsignacion.value);
     const formData = {
       usuario: this.formAsignacion.get('usuario')?.value,
       tecnico: this.formAsignacion.get('tecnico')?.value,
       status: "Pendiente",
-    }
-
-    this.dataService.createalistamiento(formData)
-
-
-    console.log('Button ok clicked!');
+    };
+   await this.dataService.createalistamiento(formData);
+   await this.loadAlistamientos();
     this.isVisible = false;
   }
 
