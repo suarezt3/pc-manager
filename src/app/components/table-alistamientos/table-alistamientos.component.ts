@@ -99,7 +99,7 @@ export class TableAlistamientosComponent implements OnInit {
     console.log(this.formAsignacion.value);
     const formData = {
       usuario: this.formAsignacion.get('usuario')?.value,
-      id_tecnico: this.formAsignacion.get('tecnico')?.value,
+      tecnico: this.formAsignacion.get('tecnico')?.value,
       status: "Pendiente",
     }
 

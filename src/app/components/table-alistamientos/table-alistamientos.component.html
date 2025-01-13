@@ -10,6 +10,9 @@
         <th class="th">Serial</th>
         <th class="th">Placa</th>
         <th class="th">Estado</th>
+        @if(userData.rol === 'Administrador') {
+          <th class="th">Técnico</th>
+        }
         <th class="th">Acta</th>
       </tr>
     </thead>
@@ -23,6 +26,9 @@
           <td>
             <nz-tag [nzColor]="item.status === 'Pendiente' ? 'error' : 'success'">{{item.status}}</nz-tag>
           </td>
+          @if (userData.rol === 'Administrador') {
+            <td>{{item.tecnico ?? 'No asignado'}}</td>
+          }
           <td>
             @if(item.status === 'Finalizado') {
               <a href="{{item.document_acta}}" [download]="item.document_acta" nz-button nzType="primary" target="_blank">Descargar acta</a>
@@ -80,7 +86,7 @@
           <div>
             <nz-select class="input" formControlName="tecnico" nzPlaceHolder="Seleccione una opcion">
               @for (item of dataPerfiles; track item?.id) {
-                <nz-option [nzValue]="item?.id" [nzLabel]="item.username"></nz-option>
+                <nz-option [nzValue]="item?.username" [nzLabel]="item.username"></nz-option>
               }
             </nz-select>
             @if (invalidField('tecnico')) {

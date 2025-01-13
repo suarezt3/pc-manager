@@ -64,6 +64,7 @@ constructor() {
   // Guarda los datos en localStorage
   localStorage.setItem('userData', JSON.stringify(this.userData[0]));
   localStorage.setItem('id_user', JSON.stringify(this.userData[0].id));
+  localStorage.setItem('tecnico', JSON.stringify(this.userData[0].username));
 
   return { perfil, error }; // Devuelve los datos y el error, si es necesario
 
@@ -112,7 +113,7 @@ async getAlistamientos() {
     // Definir filtro base
     const filtro = this.userData.rol === "Administrador"
       ? {} // Administradores ven todo
-      : { id_tecnico: this.userData?.id }; // Técnicos solo ven sus registros
+      : { tecnico: this.userData?.username }; // Técnicos solo ven sus registros
 
     // Obtener los datos desde Supabase
     const { data: alistamientos, error } = await this.supabaseClient

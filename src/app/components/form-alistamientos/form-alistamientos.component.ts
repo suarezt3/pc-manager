@@ -84,6 +84,7 @@ export class FormAlistamientosComponent implements OnInit {
     this.status = "Finalizado";
 
     const id_tecnico = JSON.parse(localStorage.getItem('id_user') || 'null');
+    const tecnico = JSON.parse(localStorage.getItem('tecnico') || 'null');
     const dataForm = {
       id_tecnico: id_tecnico,
       date: this.formAlistamientos.get('date')?.value,
@@ -95,7 +96,8 @@ export class FormAlistamientosComponent implements OnInit {
       plate: this.formAlistamientos.get('plate')?.value,
       model_pc: this.formAlistamientos.get('model_pc')?.value,
       ticket: this.formAlistamientos.get('ticket')?.value.toUpperCase(),
-      status: this.status
+      status: this.status,
+      tecnico: tecnico
     };
 
     this.dataService.createalistamiento(dataForm);
