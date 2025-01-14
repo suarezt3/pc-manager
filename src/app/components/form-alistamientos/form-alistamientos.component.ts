@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgZorroModule } from '../../ng-zorro/ng-zorro.module';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadFile, NzUploadModule } from 'ng-zorro-antd/upload';
 import { DataService } from '../../services/data.service';
 import { environment } from '../../../environments/environment';
+import { log } from 'console';
 
 
 
@@ -18,7 +19,7 @@ import { environment } from '../../../environments/environment';
 })
 export class FormAlistamientosComponent implements OnInit {
 
-  @Output() alistamientoCreado = new EventEmitter<any>(); // Agrega esta línea
+  @Output() alistamientoCreado = new EventEmitter<any>(); // envia el evento al padre
 
   public data: any[] = [];
   public date                      = null;
@@ -64,6 +65,7 @@ export class FormAlistamientosComponent implements OnInit {
   async loadAlistamientos() {
     const result = await this.dataService.getAlistamientos();
     this.data = result.alistamientos ?? []; // Carga de nuevo los alistamientos
+    console.log("DATA", this.data);
   }
 
   /**

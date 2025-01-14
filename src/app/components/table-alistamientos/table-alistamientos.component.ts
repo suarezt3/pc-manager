@@ -23,11 +23,12 @@ export class TableAlistamientosComponent implements OnInit {
   public data: any[] = [];
   public userData: any = {};
   public loadingData: boolean = false;
-  public dataPerfiles: any = {}
+  public dataPerfiles: any = {};
+  public usuarioActual: string = '';
 
-  public fb = inject(FormBuilder)
-  public dataService = inject(DataService);
-  public messageService            = inject(NzMessageService);
+  public fb             = inject(FormBuilder)
+  public dataService    = inject(DataService);
+  public messageService = inject(NzMessageService);
 
   constructor() {
     const storedUserData = localStorage.getItem('userData');
