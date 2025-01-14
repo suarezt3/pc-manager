@@ -66,13 +66,13 @@
     <nz-drawer/>
 
 
-<!--?Pendiente crear el formulario para la asiganacion de los alistamientos  -->
+
     <nz-modal [(nzVisible)]="isVisible" nzTitle="Asignacion de alistamiento" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
       <ng-container *nzModalContent>
-        <form [formGroup]="formAsignacion">
+        <form class="form" [formGroup]="formAsignacion">
           <label for="usuario">Correo del usuario</label>
-          <div>
-            <input nz-input type="text" formControlName="usuario" >
+          <div class="input-email input">
+            <input class="input-text" nz-input type="text" formControlName="usuario" >
             @if (invalidField('usuario')) {
               <div class="error" >
                   <span > Campo obligatorio </span>
@@ -83,8 +83,8 @@
             }
           </div>
           <label for="tecnico">Técnico</label>
-          <div>
-            <nz-select class="input" formControlName="tecnico" nzPlaceHolder="Seleccione una opcion">
+          <div class="input-tecnico input">
+            <nz-select class="input-select" formControlName="tecnico" nzPlaceHolder="Seleccione una opcion">
               @for (item of dataPerfiles; track item?.id) {
                 <nz-option [nzValue]="item?.username" [nzLabel]="item.username"></nz-option>
               }

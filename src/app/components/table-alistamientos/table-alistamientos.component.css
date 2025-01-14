@@ -1,3 +1,15 @@
 .th {
   background-color: rgba(0, 0, 0, 0.103);
 }
+
+.input {
+  margin-bottom: 10px;
+}
+
+.input-text{
+  text-transform: lowercase;
+}
+
+.input-select {
+  width: 100%;
+}

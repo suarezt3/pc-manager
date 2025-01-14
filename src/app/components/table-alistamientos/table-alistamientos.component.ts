@@ -3,6 +3,7 @@ import { NgZorroModule } from '../../ng-zorro/ng-zorro.module';
 import { FormAlistamientosComponent } from '../form-alistamientos/form-alistamientos.component';
 import { DataService } from '../../services/data.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 
 
@@ -26,6 +27,7 @@ export class TableAlistamientosComponent implements OnInit {
 
   public fb = inject(FormBuilder)
   public dataService = inject(DataService);
+  public messageService            = inject(NzMessageService);
 
   constructor() {
     const storedUserData = localStorage.getItem('userData');
@@ -46,12 +48,9 @@ export class TableAlistamientosComponent implements OnInit {
 
   this.dataService.getPerfiles().then((perfiles) => {
     this.dataPerfiles = perfiles
-    console.log("PERFILES", this.dataPerfiles);
-
   })
 
     this.dataService.getAlistamientos().then((result) => {
-      console.log("RESULT", result.alistamientos);
       this.data = result.alistamientos ?? [];
     });
 
@@ -81,8 +80,6 @@ export class TableAlistamientosComponent implements OnInit {
   }
 
   getButtonText() {
-    console.log("USERDATA", this.userData);
-
     return this.userData?.rol === 'Administrador' ? 'Asignar alistamiento' : 'Nuevo alistamiento';
   }
 
@@ -108,17 +105,23 @@ export class TableAlistamientosComponent implements OnInit {
   }
 
  async handleOk() {
-    console.log(this.formAsignacion.value);
+  this.formAsignacion.markAllAsTouched();
+  if (this.formAsignacion.valid) {
     const formData = {
-      usuario: this.formAsignacion.get('usuario')?.value,
+      usuario: this.formAsignacion.get('usuario')?.value.toLowerCase(),
       tecnico: this.formAsignacion.get('tecnico')?.value,
       status: "Pendiente",
     };
-   await this.dataService.createalistamiento(formData);
+   const result = await this.dataService.createalistamiento(formData);
+   console.log("ASIGNACION", result);
+
+   this.messageService.success('Tarea asignada correctamente!');
    await this.loadAlistamientos();
     this.isVisible = false;
+    this.formAsignacion.reset();
   }
 
+ }
   handleCancel(): void {
     console.log('Button cancel clicked!');
     this.isVisible = false;
