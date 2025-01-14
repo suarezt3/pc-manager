@@ -51,6 +51,17 @@ constructor() {
 }
 
 
+/**
+ *
+ * @param data para actualizar los datos de un alistamiento
+ * @returns
+ */
+async updatealistamiento(data: any) { //!PENDIENTE IMPLEMENTAR
+  const { data: user, error } = await this.supabaseClient.from('alistamientos').update(data);
+  return { user, error }; // Devuelve los datos y el error, si es necesario
+}
+
+
  /**
   *
   * @param
