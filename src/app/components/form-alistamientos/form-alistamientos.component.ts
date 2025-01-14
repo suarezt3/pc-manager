@@ -20,6 +20,7 @@ import { log } from 'console';
 export class FormAlistamientosComponent implements OnInit {
 
   @Output() alistamientoCreado = new EventEmitter<any>(); // envia el evento al padre
+  @Input() usuario: any;
 
   public data: any[] = [];
   public date                      = null;
@@ -42,6 +43,7 @@ export class FormAlistamientosComponent implements OnInit {
 
 
   ngOnInit() {
+    console.log("USUARIO", this.usuario);
 
     this.formAlistamientos = this.fb.group({
       id_tecnico: [''],
@@ -49,7 +51,7 @@ export class FormAlistamientosComponent implements OnInit {
       description: [''],
       document_acta: [''],
       opco: ['', [Validators.required]],
-      usuario: ['', [Validators.required]],
+      usuario: [this.usuario[0]?.usuario ?? '', [Validators.required]],
       serial: ['', [Validators.required]],
       plate: ['', [Validators.required]],
       model_pc: [''],

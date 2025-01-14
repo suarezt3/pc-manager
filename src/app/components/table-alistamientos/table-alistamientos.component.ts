@@ -4,6 +4,7 @@ import { FormAlistamientosComponent } from '../form-alistamientos/form-alistamie
 import { DataService } from '../../services/data.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { log } from 'console';
 
 
 
@@ -24,7 +25,7 @@ export class TableAlistamientosComponent implements OnInit {
   public userData: any = {};
   public loadingData: boolean = false;
   public dataPerfiles: any = {};
-  public usuarioActual: string = '';
+  public usuarioActual: any = {};
 
   public fb             = inject(FormBuilder)
   public dataService    = inject(DataService);
@@ -87,10 +88,22 @@ export class TableAlistamientosComponent implements OnInit {
   /**
    * Para abrir el drawer
    */
-  open(): void {
+  async openDrawer(id?: string) {
+    console.log("ID", id);
+
+    if (id) {
+      try {
+        const result = await this.dataService.getAsignacion(id);
+        this.usuarioActual = result;
+        console.log("RESULT", result);
+      } catch (error) {
+        console.error("Error al obtener la asignación:", error);
+        // Puedes manejar el error de acuerdo a tus necesidades, como mostrar un mensaje al usuario
+      }
+    }
+
     this.visible = true;
   }
-
   /**
    * Para cerrar el drawer
    */

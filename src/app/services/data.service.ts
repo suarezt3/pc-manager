@@ -100,6 +100,32 @@ async getPerfiles() {
 
 /**
  *
+ * @param id para obtener la asignacion de un alistamiento
+ */
+async getAsignacion(id?: string) {
+  // Validar el ID
+  if (!id) {
+    throw new Error("El ID es requerido");
+  }
+
+  // Realizar la consulta
+  const { data: usuario, error } = await this.supabaseClient
+    .from('alistamientos')
+    .select("*")
+    .eq('id', id)
+
+  // Manejo de errores
+  if (error) {
+    console.error("Error al obtener la asignación:", error);
+    throw new Error("No se pudo obtener la asignación");
+  }
+
+  return usuario; // Solo devuelve el usuario si no hay error
+}
+
+
+/**
+ *
  * @returns Para traer los datos de los alistamientos
  */
 async getAlistamientos() {

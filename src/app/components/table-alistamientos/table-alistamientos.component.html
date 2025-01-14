@@ -1,4 +1,4 @@
-<button nz-button nzType="primary" (click)="userData?.rol === 'Administrador' ? showModal() : open()">💻{{getButtonText() }}</button>
+<button nz-button nzType="primary" (click)="userData?.rol === 'Administrador' ? showModal() : openDrawer()">💻{{getButtonText() }}</button>
 
 <hr>
 
@@ -33,7 +33,7 @@
             @if(item.status === 'Finalizado') {
               <a href="{{item.document_acta}}" [download]="item.document_acta" nz-button nzType="primary" target="_blank">Descargar acta</a>
             }@else {
-              <button nz-button nzType="default" (click)="open()">Cargar acta</button>
+              <button nz-button nzType="default" (click)="openDrawer(item?.id)">Cargar acta</button>
             }
           </td>
         </tr>
@@ -54,10 +54,10 @@
 
     <ng-container *nzDrawerContent>
       <app-form-alistamientos
+      [usuario]="usuarioActual"
       (alistamientoCreado)="onAlistamientoCreado()">
     </app-form-alistamientos>
   </ng-container>
-
     <ng-template #footerTpl>
       <div style="float: right">
         <button nz-button style="margin-right: 8px;" (click)="close()">Cancelar</button>
