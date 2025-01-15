@@ -32,7 +32,8 @@ export class FormAlistamientosComponent implements OnInit {
   public id_acta!: string;
   public status!: string;
   public path_acta!: string;
-  // public urlDownload!: string;
+  public opcos: any[] = [];
+
   public fb                        = inject(FormBuilder);
   public messageService            = inject(NzMessageService);
   public dataService               = inject(DataService);
@@ -43,7 +44,13 @@ export class FormAlistamientosComponent implements OnInit {
 
 
   ngOnInit() {
-    console.log("USUARIO", this.usuario);
+
+    this.dataService.getOPCOS().then((opcos) => {
+      this.opcos = opcos
+      console.log("OPCOS", this.opcos);
+    })
+
+
 
     this.formAlistamientos = this.fb.group({
       id_tecnico: [''],

@@ -19,9 +19,10 @@
       <div class="opco groups-one">
         <label for="opco"><span class="required">*</span>OPCO</label>
         <div>
-          <nz-select class="input" formControlName="opco" nzPlaceHolder="Seleccione una opcion">
-            <nz-option nzValue="GroupM" nzLabel="GroupM" ></nz-option>
-            <nz-option nzValue="VML" nzLabel="VML" ></nz-option>
+          <nz-select class="input-select" formControlName="opco" nzPlaceHolder="Seleccione una opcion">
+            @for (item of opcos; track item?.id) {
+              <nz-option [nzValue]="item?.name_opco" [nzLabel]="item.name_opco"></nz-option>
+            }
           </nz-select>
         </div>
         @if (invalidField('opco')) {
