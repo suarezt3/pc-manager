@@ -28,9 +28,16 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.userData = this.dataService.userData;
-    }, 600);
+    // setTimeout(() => {
+    //   this.userData = this.dataService.userData;
+    // }, 600);
+
+    const storedUserData = localStorage.getItem('userData');
+  if (storedUserData) {
+    this.userData = JSON.parse(storedUserData);
+  } else {
+    console.warn('No se encontraron datos de usuario en localStorage');
+  }
 
    }
 
