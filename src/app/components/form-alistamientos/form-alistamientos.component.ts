@@ -83,14 +83,14 @@ export class FormAlistamientosComponent implements OnInit {
 
 
 
- async enviar() {
+  async enviar() {
     this.path_acta = `${this.URL_STORAGE}${this.path_acta}`;
 
     this.formAlistamientos.markAllAsTouched();
     if(this.formAlistamientos.invalid) {
       this.messageService.error('Por favor, rellene los campos requeridos.');
       return;
-    }else if(!this.id_acta) {
+    } else if(!this.id_acta) {
       this.messageService.error('Es obligatorio subir el acta.');
       return;
     }
@@ -114,15 +114,34 @@ export class FormAlistamientosComponent implements OnInit {
       tecnico: tecnico
     };
 
-  await  this.dataService.createalistamiento(dataForm);
-  this.alistamientoCreado.emit(dataForm);
-  await this.loadAlistamientos();
+    // Verifica si el arreglo usuario tiene más de 0 elementos
+    if (this.usuario.length > 0) {
+        // Si hay usuarios, actualiza el alistamiento
+        const id_alistamiento = this.usuario[0]?.id; // Asumiendo que el id está en el primer objeto del arreglo
+        const result = await this.dataService.updatealistamiento(id_alistamiento, dataForm);
+        this.alistamientoCreado.emit(dataForm);
+        if (result.error) {
+            this.messageService.error('Error al actualizar el alistamiento: ' + result.error);
+        } else {
+            this.messageService.success('Alistamiento actualizado correctamente');
+        }
+    } else {
+        // Si no hay usuarios, crea un nuevo alistamiento
+        const result = await this.dataService.createalistamiento(dataForm);
+
+        if (result.error) {
+            this.messageService.error('Error al crear el alistamiento: ' + result.error.message);
+        } else {
+            this.messageService.success('Alistamiento creado correctamente');
+        }
+    }
+
+    // Carga los alistamientos y reinicia el formulario
+    this.alistamientoCreado.emit(dataForm);
+    await this.loadAlistamientos();
     this.formAlistamientos.reset();
     this.id_acta = '';
-    this.messageService.success('Datos enviados correctamente');
-
-    console.log("DATAFORM",dataForm);
-  }
+}
 
 
 

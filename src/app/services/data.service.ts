@@ -56,9 +56,24 @@ constructor() {
  * @param data para actualizar los datos de un alistamiento
  * @returns
  */
-async updatealistamiento(data: any) { //!PENDIENTE IMPLEMENTAR
-  const { data: user, error } = await this.supabaseClient.from('alistamientos').update(data);
-  return { user, error }; // Devuelve los datos y el error, si es necesario
+async updatealistamiento(id: any, data: {}) {
+  // Asegúrate de que el ID y los datos a actualizar no sean nulos
+  if (!id || !data) {
+    return { error: 'ID y datos son requeridos para la actualización.' };
+  }
+
+  // Realiza la actualización en la tabla 'alistamientos'
+  const { data: updatedData, error } = await this.supabaseClient
+    .from('alistamientos')
+    .update(data)
+    .eq('id', id); // Filtra por el ID correspondiente
+
+  // Devuelve el resultado de la actualización
+  if (error) {
+    return { error }; // Si hay un error, lo devolvemos
+  }
+
+  return { updatedData }; // Devuelve los datos actualizados
 }
 
 
