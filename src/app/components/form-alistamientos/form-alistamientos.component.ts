@@ -122,7 +122,7 @@ export class FormAlistamientosComponent implements OnInit {
     };
 
     // Verifica si el arreglo usuario tiene más de 0 elementos
-    if (this.usuario.length > 0) {
+    if (this.usuario[0]?.id) {
         // Si hay usuarios, actualiza el alistamiento
         const id_alistamiento = this.usuario[0]?.id; // Asumiendo que el id está en el primer objeto del arreglo
         const result = await this.dataService.updatealistamiento(id_alistamiento, dataForm);

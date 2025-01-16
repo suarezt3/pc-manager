@@ -90,6 +90,7 @@ export class TableAlistamientosComponent implements OnInit {
    */
   async openDrawer(id?: string) {
     console.log("ID", id);
+    console.log("MODAL");
 
     if (id) {
       try {
@@ -104,11 +105,14 @@ export class TableAlistamientosComponent implements OnInit {
 
     this.visible = true;
   }
+
+
   /**
    * Para cerrar el drawer
    */
   close(): void {
     this.visible = false;
+    this.usuarioActual = {};
   }
 
   /**
